@@ -35,8 +35,8 @@ scpfile=$workdir/$basename.scp
 #   <basename>_<start>_<end>=<filename>[start,end]
 # RTTM format:
 #   Type file chan tbeg tdur ortho stype name conf Slat
-# math: convert RTTM seconds to HTK (10ms default) frames = multiply by 100
-grep SPEAKER $2 | awk -v base="$basename" -v feats="$featfile" '{begg=$4*100;endd=($4+$5)*100; print base "_" begg "_" endd "="feats "[" begg "," endd "]"}' > $scpfile
+# math: convert lab seconds to HTK (10ms default) frames = multiply by 100
+grep " speech" $2 | awk -v base="$basename" -v feats="$featfile" '{begg=$1*100;endd=$2*100; print base "_" begg "_" endd "="feats "[" begg "," endd "]"}' > $scpfile
 
 # first generate HTK features
 HCopy -T 2 -C htkconfig $1 $featfile
